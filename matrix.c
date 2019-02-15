@@ -66,8 +66,13 @@ a*b -> b
 void matrix_mult(struct matrix *a, struct matrix *b) {
     int i,j,row,col;
   row = 4;
-  col = 4;
-  m->lastcol = 4;
+  col = a->col;
+  m->lastcol = a->col;
+  for(i = 0; i < row){
+    for(j = 0; j < col; j++){
+b->m[i][j] = a->ma[i][j] * 
+    }
+  }
 }
 
 
