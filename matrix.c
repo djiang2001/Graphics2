@@ -22,16 +22,15 @@ print the matrix such that it looks like
 the template in the top comment
 */
 void print_matrix(struct matrix *m) {
-  int i,j,row,col;
-  row = 4;
-  col = m->lastcol;
+  int i,j;
 
-    for (i = 0; i < row; i++) {
-      for (j = 0; j < col; j++) {
+    for (i = 0; i < m->rows; i++) {
+      for (j = 0; j < m->cols; j++) {
 	printf("[ %f ]",m->m[i][j]);
       }
       printf("\n");
     }
+    printf("\n");
 }
 
 /*-------------- void ident() --------------
@@ -40,13 +39,10 @@ Inputs:  struct matrix *m <-- assumes m is a square matrix
 turns m in to an identity matrix
 */
 void ident(struct matrix *m) {
-  int i,j,row,col;
-  row = 4;
-  col = 4;
-  m->lastcol = 4;
+  int i,j;
 
-  for(i = 0; i < row; i++){
-    for(j = 0; j < col; j++){
+  for(i = 0; i < m->rows; i++){
+    for(j = 0; j < m->cols; j++){
       if(i == j){
 	m->m[i][j] = 1;
       }else{
@@ -64,15 +60,22 @@ multiply a by b, modifying b to be the product
 a*b -> b
 */
 void matrix_mult(struct matrix *a, struct matrix *b) {
-    int i,j,row,col;
-  row = 4;
-  col = a->col;
-  m->lastcol = a->col;
-  for(i = 0; i < row){
-    for(j = 0; j < col; j++){
-b->m[i][j] = a->ma[i][j] * 
+  struct matrix * product;
+  product = new_matrix(a->rows,b->cols);
+  int i,j,k;
+  double s;
+  
+  for(i = 0; i < a->rows;i++){
+    for(j = 0; j < b->cols; j++){
+      s = 0.0;
+      for(k = 0; k < a->lastcol;k++){
+	s += a-> m[i][k] * b ->m[k][j];
+      }
+      product->m[i][j] = s;
     }
   }
+  copy_matrix(product,b);
+  free_matrix(product);
 }
 
 
